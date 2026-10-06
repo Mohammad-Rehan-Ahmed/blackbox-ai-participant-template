@@ -1,17 +1,28 @@
 {
   "round": "round-1",
-  "team": "BB-XXX",
-  "queries_used": 0,
+  "team": "BB-002",
+  "queries_used": 79,
   "claims": [
     {
       "type": "feature_effect",
-      "feature": "x1",
-      "direction": "increases",
+      "feature": "comorbidity_ratio",
+      "direction": "decreases",
       "strength": "strong",
-      "confidence": 0.0,
+      "confidence": 0.95,
       "evidence": {
         "query_ids": [],
-        "summary": "Replace this example claim with your own. Every claim needs evidence."
+        "summary": "With the other baseline inputs held fixed, changing comorbidity_ratio from 0 to 1 changed the score from 0.9786 to 0.8177, a decrease of 0.1609."
+      }
+    },
+    {
+      "type": "threshold",
+      "feature": "years_registered",
+      "value": 0,
+      "tolerance": 5,
+      "confidence": 0.75,
+      "evidence": {
+        "query_ids": [],
+        "summary": "At years_registered = 0 the observed score was 0.9684, while values around 5 to 20 produced approximately 0.9786 under otherwise similar baseline inputs. This suggests a possible threshold or nonlinear effect near the low end, but the exact threshold was not established."
       }
     }
   ]
