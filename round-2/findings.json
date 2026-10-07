@@ -7,29 +7,33 @@
       "type": "feature_effect",
       "feature": "comorbidity_ratio",
       "direction": "decreases",
-      "strength": "very_strong",
       "confidence": 0.98,
       "evidence": {
         "query_ids": [],
-        "summary": "Changing comorbidity_ratio from 0 to 1 changed the score from 0.9786 to 0.8177, a decrease of 0.1609 (about 16.4% relative)."
+        "summary": "Changing comorbidity_ratio from 0 to 1 changed the score from 0.9786 to 0.8177, a decrease of 0.1609 (about 16.4% relative), making it the largest observed full-range score change."
       }
     },
     {
       "type": "feature_effect",
       "feature": "prior_visits",
       "direction": "increases",
-      "strength": "strong",
       "confidence": 0.97,
       "evidence": {
-        "query_ids": [],
-        "summary": "Prior visits increased the score from 0.8787 at 0 visits to 0.9793 at the allowed maximum of 20 visits. The gain was saturating rather than linear."
+        "query_ids": [
+          "R2 96",
+          "R2 97",
+          "R2 98",
+          "R2 99",
+          "R2 100",
+          "R2 101"
+        ],
+        "summary": "The controlled sweep increased the score from 0.8787 at 0 prior visits to 0.9793 at 20 prior visits. Successive 5-visit gains were +0.0517, +0.0263, +0.0144, and +0.0082, showing diminishing returns."
       }
     },
     {
       "type": "feature_effect",
       "feature": "recent_admissions",
       "direction": "decreases",
-      "strength": "strong",
       "confidence": 0.94,
       "evidence": {
         "query_ids": [],
@@ -37,147 +41,112 @@
       }
     },
     {
-      "type": "nonlinear_effect",
+      "type": "threshold",
       "feature": "years_registered",
-      "direction": "non_monotonic",
-      "strength": "strong",
+      "value": "approximately 10.5–10.6 years (best observed region)",
       "confidence": 0.97,
       "evidence": {
-        "query_ids": [],
-        "summary": "The score increased from 0.9684 at 0 years to around 0.9786 near 10 years, then declined to 0.9745 at 20, 0.9629 at 30, and 0.9308 at 40. Fine probing found the best observed region around 10.5–10.6 years."
+        "query_ids": [
+          "R2 87",
+          "R2 88",
+          "R2 89",
+          "R2 90",
+          "R2 91",
+          "R2 92",
+          "R2 93",
+          "R2 94",
+          "R2 95"
+        ],
+        "summary": "Years registered showed an inverted-U relationship: the score rose from 0.9684 at 0 years to about 0.9786 near 10 years and later fell to 0.9308 at 40 years. Fine probing found 0.9793 around 10.5–10.6 years."
       }
     },
     {
-      "type": "nonlinear_effect",
+      "type": "threshold",
       "feature": "baseline_score",
-      "direction": "non_monotonic",
-      "strength": "moderate",
+      "value": "approximately 772–773 in the optimized configuration",
       "confidence": 0.92,
       "evidence": {
-        "query_ids": [],
-        "summary": "In the years_registered=20 sweep, the score rose from 0.9631 at baseline_score=600 to about 0.9745 around 750, then declined toward 0.9703 at 900. A separate fine search for the overall optimum found a best region around 772–773 under optimized conditions."
+        "query_ids": [
+          "R2 109",
+          "R2 110",
+          "R2 111",
+          "R2 112",
+          "R2 113"
+        ],
+        "summary": "Baseline score was non-monotonic in the tested ranges. In a years_registered=20 sweep it rose from 0.9631 at 600 to about 0.9745 around 750 and declined toward 0.9703 at 900; fine optimization found the overall best region around 772–773."
       }
     },
     {
       "type": "feature_effect",
       "feature": "age",
-      "direction": "weak_curved_effect",
-      "strength": "weak",
+      "direction": "non_monotonic",
       "confidence": 0.8,
       "evidence": {
-        "query_ids": [],
-        "summary": "Across the tested age range around 70–75, scores stayed in a narrow range of approximately 0.9769–0.9786, with the best observed region around age 73."
+        "query_ids": [
+          "R2 36",
+          "R2 37",
+          "R2 38",
+          "R2 39",
+          "R2 40"
+        ],
+        "summary": "Across the controlled age sweep around 70–75, scores stayed in a narrow range of approximately 0.9769–0.9786, with the best observed region around age 73. The effect is small and curved rather than a strong monotonic effect."
       }
     },
     {
-      "type": "feature_effect",
+      "type": "ignored_feature",
       "feature": "dependants",
-      "direction": "no_observed_effect",
-      "strength": "none_observed",
       "confidence": 0.9,
       "evidence": {
-        "query_ids": [],
-        "summary": "Dependants from 0 through 6 produced 0.9793 in the optimized configuration."
+        "query_ids": [
+          "R2 102",
+          "R2 103",
+          "R2 104",
+          "R2 105",
+          "R2 106",
+          "R2 107",
+          "R2 108"
+        ],
+        "summary": "Dependants from 0 through 6 produced 0.9793 in the optimized configuration, so no score sensitivity was observed in that tested range."
       }
     },
     {
-      "type": "feature_effect",
+      "type": "ignored_feature",
       "feature": "requested_beds",
-      "direction": "no_observed_effect",
-      "strength": "none_observed",
       "confidence": 0.9,
       "evidence": {
         "query_ids": [],
-        "summary": "Requested_beds values 0, 50, and 100 appeared flat in the controlled sweep."
+        "summary": "Requested_beds values 0, 50, and 100 appeared flat in the controlled sweep, with no observed score change."
+      }
+    },
+    {
+      "type": "ignored_feature",
+      "feature": "vitals_index",
+      "confidence": 0.9,
+      "evidence": {
+        "query_ids": [],
+        "summary": "Vitals_index values 0, 50, and 100 appeared flat in the controlled sweep, with no observed score change."
       }
     },
     {
       "type": "feature_effect",
-      "feature": "vitals_index",
-      "direction": "no_observed_effect",
-      "strength": "none_observed",
-      "confidence": 0.9,
-      "evidence": {
-        "query_ids": [],
-        "summary": "Vitals_index values 0, 50, and 100 appeared flat in the controlled sweep."
-      }
-    },
-    {
-      "type": "categorical_effect",
       "feature": "ward",
-      "direction": "varies_by_category",
-      "strength": "small_to_moderate",
+      "direction": "non_monotonic",
       "confidence": 0.88,
       "evidence": {
         "query_ids": [],
-        "summary": "Observed scores were approximately A=0.9763, B=0.9786, C=0.9750, D=0.9697; B was best among tested wards."
-      }
-    },
-    {
-      "type": "range_comparison",
-      "feature": "prior_visits_vs_recent_admissions",
-      "direction": "prior_visits_larger",
-      "strength": "strong",
-      "confidence": 0.9,
-      "evidence": {
-        "query_ids": [],
-        "summary": "The observed full-range score change was 0.1006 for prior_visits (0→20) versus 0.0380 for recent_admissions (0→5), an absolute-effect ratio of about 2.65×."
-      }
-    },
-    {
-      "type": "range_comparison",
-      "feature": "comorbidity_ratio_vs_recent_admissions",
-      "direction": "comorbidity_larger",
-      "strength": "very_strong",
-      "confidence": 0.92,
-      "evidence": {
-        "query_ids": [],
-        "summary": "The observed full-range score change was 0.1609 for comorbidity_ratio (0→1) versus 0.0380 for recent_admissions (0→5), an absolute-effect ratio of about 4.23×."
-      }
-    },
-    {
-      "type": "range_comparison",
-      "feature": "comorbidity_ratio_vs_prior_visits",
-      "direction": "comorbidity_larger",
-      "strength": "strong",
-      "confidence": 0.9,
-      "evidence": {
-        "query_ids": [],
-        "summary": "The observed full-range score change was 0.1609 for comorbidity_ratio (0→1) versus 0.1006 for prior_visits (0→20), an absolute-effect ratio of about 1.60×."
-      }
-    },
-    {
-      "type": "threshold",
-      "feature": "best_observed_configuration",
-      "value": {
-        "age": 73,
-        "baseline_score": "approximately 772–773",
-        "comorbidity_ratio": 0,
-        "dependants": "0–6 (flat in optimized configuration)",
-        "prior_visits": 20,
-        "recent_admissions": 0,
-        "requested_beds": "0–100 appeared flat",
-        "vitals_index": "0–100 appeared flat",
-        "ward": "B",
-        "years_registered": "approximately 10.5–10.6",
-        "score": 0.9793,
-        "decision": "APPROVE"
-      },
-      "confidence": 0.97,
-      "evidence": {
-        "query_ids": [],
-        "summary": "The maximum observed score was 0.9793 (APPROVE) at the refined best region: age 73, baseline_score about 772–773, comorbidity_ratio 0, prior_visits 20, recent_admissions 0, ward B, years_registered about 10.5–10.6; dependants 0–6 and requested_beds/vitals_index 0–100 appeared flat in the tested optimized configuration."
+        "summary": "Observed scores were approximately A=0.9763, B=0.9786, C=0.9750, and D=0.9697. Ward B was best among the tested categories; this is a categorical comparison rather than a simple ordered effect."
       }
     },
     {
       "type": "interaction",
-      "feature": "multiple_inputs",
-      "direction": "not_established",
-      "strength": "unknown",
+      "features": [
+        "prior_visits",
+        "recent_admissions"
+      ],
       "confidence": 0.99,
       "evidence": {
         "query_ids": [],
-        "summary": "The experiments establish strong one-variable relationships but do not provide enough paired two-variable sweeps to claim an exact interaction formula."
+        "summary": "The experiments establish strong one-variable relationships and range comparisons, but do not provide enough paired two-variable sweeps to establish an exact interaction formula between inputs."
       }
     }
   ]
